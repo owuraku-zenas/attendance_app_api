@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('php', function () {
+    print_r(PDO::getAvailableDrivers());
+});
+
+Route::get('/invalid-date', [DateController::class, 'validator'])->name('invalid-date');
