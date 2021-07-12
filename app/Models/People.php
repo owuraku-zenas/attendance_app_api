@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class People extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function getAttendance() {
+        return $this->hasMany(Attendance::class);
+    }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DateController;
+use App\Http\Controllers\PeopleController;
 use App\Http\Middleware\EnsureDateIsSingle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/add-date', [DateController::class, 'create'])->middleware(EnsureDateIsSingle::class);
+Route::post('/add-person', [PeopleController::class, 'store']);
+Route::post('/take-attendance', [AttendanceController::class, 'create']);
+
+

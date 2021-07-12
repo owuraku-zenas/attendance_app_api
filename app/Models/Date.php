@@ -10,4 +10,8 @@ class Date extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    function getAttendance() {
+        return $this->hasMany(Attendance::class);
+    }
 }

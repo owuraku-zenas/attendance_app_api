@@ -10,4 +10,12 @@ class Attendance extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function getPeople() {
+        return $this->belongsTo(People::class, 'people_id');
+    }
+
+    public function getDate() {
+        return $this->belongsTo(Date::class);
+    }
 }
