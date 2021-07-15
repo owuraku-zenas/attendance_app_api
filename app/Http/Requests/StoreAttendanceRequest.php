@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreAttendanceRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class StoreAttendanceRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +23,7 @@ class StoreAttendanceRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             //
@@ -31,24 +32,7 @@ class StoreAttendanceRequest extends FormRequest
         ];
     }
 
-//    /**
-//     * Handle a failed validation attempt.
-//     *
-//     * @param \Illuminate\Contracts\Validation\Validator $validator
-//     * @return void
-//     *
-//     * @throws \Illuminate\Validation\ValidationException
-//     */
-//    protected function failedValidation(Validator $validator)
-//    {
-//        $errors = (new ValidationException($validator))->errors();
-//
-//        throw new HttpResponseException(
-//            response()->json(
-//                ['success' => 'false',
-//                    'errors'  => $errors
-//                ],
-//                JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
-//        );
-//    }
+    protected function failedValidation(Validator $validator) {
+        throw new HttpResponseException(response()->json(['success' => false, 'message' => $validator->errors()], 422));
+    }
 }
